@@ -1,21 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 
 class CommentList extends Component {
     static defaultProps = {
         comments: []
     }
-    componentDidMount() {
-        console.log('---', 'mounted')
-    }
 
-    componentWillReceiveProps(nextProps) {
-        console.log('---', this.props, nextProps)
-    }
-
-
-    componentWillUnmount() {
-        console.log('---', 'unmounting')
+    static propTypes = {
+        comments: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            user: PropTypes.string.isRequired,
+            text: PropTypes.string.isRequired
+        }))
     }
 
     state = {
