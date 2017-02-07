@@ -3,7 +3,7 @@ import CommentList from './CommentList'
 
 function Article(props) {
     const getBody = () => {
-            const {isOpen, article: {text, comments}} = this.props
+            const {isOpen, article: {text, comments}} = props
             if (!isOpen) return null
 
             return (
@@ -14,11 +14,11 @@ function Article(props) {
             )
         }
 
-    const {article, toggleOpen} = this.props
+    const {article, toggleOpen} = props
     return (
         <div>
             <h3 onClick={toggleOpen}>{article.title}</h3>
-            {this.getBody()}
+            {getBody()}
         </div>
     )
 }
