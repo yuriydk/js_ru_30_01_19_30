@@ -23,7 +23,8 @@ ArticleList.defaultProps = {
 }
 
 ArticleList.propTypes = {
-    //А вот сюда еще и из декоратора данные приходят
+    openItemId: React.PropTypes.string,
+    toggleOpenItem: React.PropTypes.func.isRequired,
     articles: PropTypes.arrayOf( PropTypes.shape({
         title: PropTypes.string.isRequired,
         text: PropTypes.string.isRequired,

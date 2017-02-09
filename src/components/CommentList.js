@@ -27,6 +27,8 @@ CommentList.defaultProps = {
 }
 
 CommentList.propTypes = {
+    isOpen: React.PropTypes.bool.isRequired,
+    toggleOpen: React.PropTypes.func.isRequired,
     comments: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         user: PropTypes.string.isRequired,
