@@ -39,7 +39,7 @@ export default class DateRangePicker extends Component{
         const toStringOptions = { year: 'numeric', month: 'long', day: 'numeric'}
         return (
             <div>
-                from <b>{dayFrom.toLocaleString('en', toStringOptions)}</b> to <b>{dayFrom.toLocaleString('en', toStringOptions)}</b>
+                from <b>{dayFrom.toLocaleString('en', toStringOptions)}</b> to <b>{dayTo.toLocaleString('en', toStringOptions)}</b>
             </div>
         )
     }
