@@ -1,13 +1,12 @@
 import React, { PropTypes, Component } from 'react'
+import DateRangePicker from './DateRangePicker'
 import ArticleList from './ArticleList'
-import Chart from './Chart'
-import Select from 'react-select'
-import 'react-select/dist/react-select.css'
+
 
 class App extends Component {
-    state = {
-        user: '',
-        selection: null
+
+    onDateRangeSelected = (range) => {
+        console.log(range);
     }
 
     render() {
@@ -16,24 +15,14 @@ class App extends Component {
             label: article.title,
             value: article.id
         }))
+
+
         return (
             <div>
-                User: <input type="text" value={this.state.user} onChange={this.handleUserChange}/>
-                <Select options = {options} onChange={this.handleSelectChange} value={this.state.selection} multi/>
+                <DateRangePicker onRangeSelected={this.onDateRangeSelected}/>
                 <ArticleList articles={articles}/>
-                <Chart articles={articles}/>
             </div>
         )
-    }
-
-    handleSelectChange = selection => this.setState({ selection })
-
-    handleUserChange = (ev) => {
-        if (ev.target.value.length < 10) {
-            this.setState({
-                user: ev.target.value
-            })
-        }
     }
 }
 

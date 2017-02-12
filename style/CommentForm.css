@@ -1,0 +1,7 @@
+.comment-form{
+  margin: 10px 0;
+}
+  .comment-form label{
+    margin-right: 10px;
+    display: inline-block;;
+  }
