@@ -21,6 +21,7 @@ export default class CommentForm extends Component {
     }
 
     handleSubmit = ev => {
+        //держи значения в стейте, хочешь обнулить - просто делаешь setState с ‘’ значениями
         ev && ev.preventDefault && ev.preventDefault();
         const form = ev.target;
         const formData = {
