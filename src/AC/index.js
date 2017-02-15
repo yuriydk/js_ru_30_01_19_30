@@ -1,16 +1,29 @@
-import {INCREMENT, DELETE_ARTICLE} from '../constants'
+import constants from '../constants'
 
 export function increment() {
     const action = {
-        type: INCREMENT
+        type: constants.INCREMENT
     }
-
     return action
 }
 
 export function deleteArticle(id) {
     return {
-        type: DELETE_ARTICLE,
+        type: constants.DELETE_ARTICLE,
         payload: { id }
+    }
+}
+
+export function filterByIds(ids){
+    return {
+        type: constants.FILTER_BY_ID,
+        payload: { ids }
+    }
+}
+
+export function filterByDate(range){
+    return {
+        type: constants.FILTER_BY_DATE,
+        payload: { range }
     }
 }

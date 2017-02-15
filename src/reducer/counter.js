@@ -1,8 +1,8 @@
-import {INCREMENT} from '../constants'
+import constants from '../constants'
 
 export default (count = 0, action) => {
     switch (action.type) {
-        case INCREMENT:
+        case constants.INCREMENT:
             return count + 1
     }
 

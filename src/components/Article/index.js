@@ -28,6 +28,7 @@ class Article extends Component {
         return (
             <div ref = {this.getContainerRef}>
                 <h3 onClick={toggleOpen}>
+                    <i>{article.date.toDateString()}</i>
                     {article.title}
                     <a href="#" onClick = {this.handleDelete}>Delete me</a>
                 </h3>

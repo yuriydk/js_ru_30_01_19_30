@@ -1,11 +1,16 @@
 import {articles as defaultArticles} from '../fixtures'
-import {DELETE_ARTICLE} from '../constants'
+import constants from '../constants'
 
-export default (articles = defaultArticles, action) => {
+const makeDates = (articles) =>{
+    articles.forEach(a => {a.date = new Date(a.date)})
+    return articles
+}
+
+export default (articles = makeDates(defaultArticles), action) => {
     const {type, payload} = action
 
     switch (type) {
-        case DELETE_ARTICLE:
+        case constants.DELETE_ARTICLE:
             return articles.filter(article => article.id !== payload.id)
     }
 
