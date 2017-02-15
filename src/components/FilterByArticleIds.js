@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
@@ -6,9 +6,9 @@ import {filterByIds} from '../AC/'
 
 class FilterByArticleIds extends Component {
 
-    state = {
-        from: null,
-        to: null
+    static propTypes = {
+        articles: PropTypes.array.isRequired,
+        ids: PropTypes.array.isRequired
     }
 
     handleSelectChange = selection => {

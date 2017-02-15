@@ -1,15 +1,19 @@
 import React, { PropTypes, Component } from 'react'
 import ArticleList from './ArticleList'
-import Chart from './Chart'
 import DateRange from './FilterByDateRange'
 import FilterByArticleIds from './FilterByArticleIds'
 import Counter from './Counter'
 import {connect} from 'react-redux'
 
 class App extends Component {
-    state = {
-        user: '',
-        selection: null
+
+    static propTypes = {
+        articles: PropTypes.array.isRequired,
+        filter: PropTypes.shape({
+            ids: PropTypes.array.isRequired,
+            range: PropTypes.shape({from: PropTypes.date, to: PropTypes.date}).isRequired
+        }).isRequired
+
     }
 
     render() {
@@ -17,11 +21,9 @@ class App extends Component {
         return (
             <div>
                 <Counter/>
-                User: <input type="text" value={this.state.user} onChange={this.handleUserChange}/>
                 <FilterByArticleIds/>
                 <DateRange />
                 <ArticleList articles={this.applyFilter(articles)}/>
-                <Chart articles={articles}/>
             </div>
         )
     }
@@ -43,20 +45,6 @@ class App extends Component {
         const {range} = this.props.filter
         return compareDates(range.from, article.date) && compareDates(article.date, range.to)
     }
-
-
-
-    handleUserChange = (ev) => {
-        if (ev.target.value.length < 10) {
-            this.setState({
-                user: ev.target.value
-            })
-        }
-    }
-}
-
-App.propTypes = {
-    articles: PropTypes.array.isRequired
 }
 
 export default connect(state => ({
