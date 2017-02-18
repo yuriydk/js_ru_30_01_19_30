@@ -1,16 +1,20 @@
 import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 import NewCommentForm from './NewCommentForm'
+import {connect} from 'react-redux'
+import {loadAllComments} from '../AC'
 
 class CommentList extends Component {
     static propTypes = {
-        comments: PropTypes.array
+        commentIds: PropTypes.arrayOf(PropTypes.number),
+        articleId: PropTypes.string,
+        isLoading: PropTypes.bool
     }
     static defaultProps = {
-        comments: []
+        commentIds: []
     }
     componentDidMount() {
-        console.log('---', 'mounted')
+        this.props.loadAllComments()
     }
 
     componentWillReceiveProps(nextProps) {
@@ -39,16 +43,19 @@ class CommentList extends Component {
     getBody() {
         if (!this.state.isOpen) return null
 
-        const {comments} = this.props
-        if (!comments.length) return (<div>
+        const {commentIds, articleId, isLoading} = this.props
+        if (!commentIds.length) return (<div>
             <h3>No comments yet</h3>
-            <NewCommentForm />
+            <NewCommentForm articleId={articleId} />
         </div>)
 
-        const commentItems = comments.map(id => <li key={id}><Comment id={id} /></li>)
+        if(isLoading)
+            return (<h3>Loading...</h3>)
+
+        const commentItems = commentIds.map(id => <li key={id}><Comment id={id} /></li>)
         return <div>
             <ul>{commentItems}</ul>
-            <NewCommentForm />
+            <NewCommentForm articleId={articleId}/>
         </div>
     }
 
@@ -60,4 +67,4 @@ class CommentList extends Component {
     }
 }
 
-export default CommentList
+export default connect(state=>({isLoading: state.comments.isLoading}), {loadAllComments})(CommentList)

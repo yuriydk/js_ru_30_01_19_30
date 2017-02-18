@@ -12,7 +12,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.props.loadAllArticlesThunk()
+        this.props.loadAllArticles()
     }
 
     render() {
@@ -38,4 +38,4 @@ class App extends Component {
 App.propTypes = {
 }
 
-export default connect(null, {loadAllArticles, loadAllArticlesThunk})(App)
+export default connect(null, {loadAllArticles})(App)
