@@ -8,13 +8,15 @@ class CommentList extends Component {
     static propTypes = {
         commentIds: PropTypes.arrayOf(PropTypes.number),
         articleId: PropTypes.string,
-        isLoading: PropTypes.bool
+        isLoading: PropTypes.bool,
+        loaded: PropTypes.bool
     }
     static defaultProps = {
         commentIds: []
     }
     componentDidMount() {
-        this.props.loadAllComments()
+        if(!this.props.loaded)
+            this.props.loadAllComments()
     }
 
     componentWillReceiveProps(nextProps) {
@@ -67,4 +69,4 @@ class CommentList extends Component {
     }
 }
 
-export default connect(state=>({isLoading: state.comments.isLoading}), {loadAllComments})(CommentList)
+export default connect(state=>({isLoading: state.comments.isLoading, loaded: Object.keys(state.comments.entities).length > 0}), {loadAllComments})(CommentList)
