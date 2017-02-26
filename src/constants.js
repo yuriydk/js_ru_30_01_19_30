@@ -13,3 +13,5 @@ export const ADD_COMMENT = 'ADD_COMMENT'
 export const START = '_START'
 export const SUCCESS = '_SUCCESS'
 export const FAIL = '_FAIL'
+
+export const LOAD_COMMENTS_FOR_ARTICLE = 'LOAD_COMMENTS_FOR_ARTICLE'

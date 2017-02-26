@@ -22,5 +22,7 @@ Comment.propTypes = {
 export default connect((state, props) => {
     const {id} = props
     const comment = state.comments.get(id)
+    if(comment == undefined)
+        console.log('comment not found', id);
     return { comment }
 })(Comment)

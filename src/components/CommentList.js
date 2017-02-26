@@ -1,14 +1,23 @@
 import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 import NewCommentForm from './NewCommentForm'
+import {loadCommentsForArticle} from '../AC'
+import {connect} from 'react-redux'
+import Loader from './Loader'
+
 
 class CommentList extends Component {
     static propTypes = {
-        article: PropTypes.object.isRequired
+        article: PropTypes.object.isRequired,
+        loadCommentsForArticle: PropTypes.func.isRequired
     }
 
     state = {
         isOpen: false
+    }
+
+    componentWillUpdate({ article, loadArticle, loadCommentsForArticle}, {isOpen}) {
+        if (!this.state.isOpen && isOpen && !article.isCommentsLoading && !article.isCommentsLoaded) loadCommentsForArticle(article.id)
     }
 
     render() {
@@ -23,6 +32,9 @@ class CommentList extends Component {
 
     getBody() {
         if (!this.state.isOpen) return null
+
+        if(!this.props.article.isCommentsLoaded)
+            return <Loader/>
 
         const {comments = [], id} = this.props.article
         if (!comments.length) return (<div>
@@ -45,4 +57,4 @@ class CommentList extends Component {
     }
 }
 
-export default CommentList
+export default connect(null, {loadCommentsForArticle})(CommentList)
