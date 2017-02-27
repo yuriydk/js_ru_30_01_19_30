@@ -10,6 +10,7 @@ const CommentModel = Record({
     text: null
 })
 
+//ок, но давай комменты хранить в такой же структуре, как и статьи
 const defaultState = new Map({})
 
 
