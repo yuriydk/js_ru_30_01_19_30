@@ -5,6 +5,7 @@ import {loadCommentsPage} from '../AC'
 import {connect} from 'react-redux'
 import {mapToArr} from '../utils'
 import {COMMENTS_PAGE_SIZE} from '../constants'
+import SimplePager from './SimplePager'
 
 class CommentsPage extends Component {
 
@@ -20,7 +21,7 @@ class CommentsPage extends Component {
     }
 
     render () {
-        const {comments, isLoading} = this.props
+        const {comments, isLoading, params: {pageNumber}} = this.props
         if(isLoading)
             return <Loader/>
 
@@ -31,6 +32,7 @@ class CommentsPage extends Component {
 
         return(
             <div>
+                <SimplePager pageNumber={pageNumber} path="/comments"/>
                 <ul>
                     {commentItems}
                 </ul>
