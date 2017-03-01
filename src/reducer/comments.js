@@ -1,4 +1,4 @@
-import {ADD_COMMENT, LOAD_ARTICLE_COMMENTS, SUCCESS} from '../constants'
+import {ADD_COMMENT, LOAD_ARTICLE_COMMENTS, SUCCESS, LOAD_COMMENTS_PAGE } from '../constants'
 import {arrayToMap} from '../utils'
 import {DefaultReducerState} from './helpers'
 import {Record} from 'immutable'

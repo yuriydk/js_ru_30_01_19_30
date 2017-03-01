@@ -25,7 +25,7 @@ class CommentsPage extends Component {
             return <Loader/>
 
         if(!comments.length)
-            return <h3>No comments yet!</h3>
+            return <h3>No comments for this page!</h3>
 
         const commentItems = comments.map(id => <li key={id}><Comment id={id} /></li>)
 
@@ -40,15 +40,17 @@ class CommentsPage extends Component {
 }
 
 export default connect((state, props)=>{
-    debugger
-    const allComments = mapToArr(state.commentsPages.entities);
-    const {total, isLoading} = state.comments
     const {pageNumber} = props.params;
-    const begin = (pageNumber - 1) * COMMENTS_PAGE_SIZE
-    const comments = allComments.slice(begin, begin + COMMENTS_PAGE_SIZE)
-    const isLoadingReuqired = total < 0  || !isLoading && total > begin && !comments.length
+    const page = state.commentsPages.entities.get(pageNumber)
+
+    if(!page)
+        return {isLoadingReuqired: true, isLoading: true}
+
+    const {comments, isLoading, isLoaded} = page
+    const isLoadingReuqired = !isLoading && !isLoaded
     return {
-        comments: allComments.slice(begin, begin + COMMENTS_PAGE_SIZE),
-        isLoadingReuqired: isLoadingReuqired
+        comments: comments,
+        isLoadingReuqired: isLoadingReuqired,
+        isLoading: isLoading
     }
 }, {loadCommentsPage})(CommentsPage)

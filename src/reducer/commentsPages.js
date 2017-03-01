@@ -18,7 +18,7 @@ export default (state = defaultState, action) => {
 
     switch (type) {
         case LOAD_COMMENTS_PAGE + START:
-            return state.setIn(['entities', payload.pageNumber], new CommentsPageModel({pageNumber, isLoading: true}))
+            return state.setIn(['entities', payload.pageNumber], new CommentsPageModel({pageNumber: payload.pageNumber, isLoading: true}))
                         .setIn(['entities', payload.pageNumber, 'isLoading'], true)
 
             return state.setIn('isLoading', true)
