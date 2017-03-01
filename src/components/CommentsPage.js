@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {mapToArr} from '../utils'
 import {COMMENTS_PAGE_SIZE} from '../constants'
 import SimplePager from './SimplePager'
+import NotFoundPage from '../routeHandlers/NotFoundPage'
 
 class CommentsPage extends Component {
 
@@ -13,15 +14,17 @@ class CommentsPage extends Component {
         params: PropTypes.shape({pageNumber: PropTypes.string.isRequired}).isRequired
     }
 
-    componentDidMount(){
-        const {isLoadingReuqired, loadCommentsPage, params: {pageNumber}} = this.props;
+    load ({isLoadingReuqired, loadCommentsPage, params: {pageNumber}}) {
         if(isLoadingReuqired)
             loadCommentsPage(pageNumber)
     }
 
-    componentWillReceiveProps({isLoadingReuqired, loadCommentsPage, params: {pageNumber}}){
-        if(isLoadingReuqired)
-            loadCommentsPage(pageNumber)
+    componentDidMount(){
+        this.load(this.props)
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.load(nextProps)
     }
 
     render () {
@@ -30,7 +33,7 @@ class CommentsPage extends Component {
             return <Loader/>
 
         if(!comments.length)
-            return <h3>No comments for this page!</h3>
+            return <NotFoundPage />
 
         const commentItems = comments.map(id => <li key={id}><Comment id={id} /></li>)
 
@@ -45,7 +48,7 @@ class CommentsPage extends Component {
     }
 }
 
-export default connect((state, props)=>{
+export default connect((state, props) => {
     const {pageNumber} = props.params;
     const page = state.commentsPages.entities.get(pageNumber)
 
