@@ -21,6 +21,10 @@ export default (state = defaultState, action) => {
 
         case LOAD_ARTICLE_COMMENTS + SUCCESS:
             return state.mergeIn(['entities'], arrayToMap(response, CommentModel))
+
+        case LOAD_COMMENTS_PAGE + SUCCESS:
+            return state.mergeIn(['entities'], arrayToMap(response.records, CommentModel))
+                        .set('total', response.total)
     }
 
     return state

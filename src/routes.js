@@ -9,6 +9,7 @@ import NotFoundPage from './routeHandlers/NotFoundPage'
 import AuthorizedOnlyPage from './routeHandlers/AuthorizedOnlyPage'
 import ErrorPage from './routeHandlers/ErrorPage'
 import store from './store'
+import CommentsPage  from '././components/CommentsPage'
 
 export default (
     <Router history={browserHistory}>
@@ -18,6 +19,7 @@ export default (
             </Route>
             <Route path="filters" component={Filters}/>
             <Route path="counter" component={Counter}/>
+            <Route path="comments/:pageNumber" component={CommentsPage} />
             <Route path="admin" component={AuthorizedOnlyPage}
                 onEnter={(routeState, replace) => {
                     if (!store.getState().user) {
