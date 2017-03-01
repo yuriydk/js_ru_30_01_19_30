@@ -16,4 +16,10 @@ const SimplePager = (props) => {
     )
 }
 
+SimplePager.propTypes = {
+    current: PropTypes.number.isRequired,
+    path: PropTypes.string.isRequired,
+    count: PropTypes.number.isRequired
+}
+
 export default SimplePager

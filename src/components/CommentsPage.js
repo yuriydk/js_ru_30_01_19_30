@@ -9,6 +9,10 @@ import SimplePager from './SimplePager'
 
 class CommentsPage extends Component {
 
+    static propTypes = {
+        params: PropTypes.shape({pageNumber: PropTypes.string.isRequired}).isRequired
+    }
+
     componentDidMount(){
         const {isLoadingReuqired, loadCommentsPage, params: {pageNumber}} = this.props;
         if(isLoadingReuqired)
@@ -32,7 +36,7 @@ class CommentsPage extends Component {
 
         return(
             <div>
-                <SimplePager current={pageNumber} count={Math.ceil(total/COMMENTS_PAGE_SIZE)} path="/comments"/>
+                <SimplePager current={+pageNumber} count={Math.ceil(total/COMMENTS_PAGE_SIZE)} path="/comments"/>
                 <ul>
                     {commentItems}
                 </ul>
