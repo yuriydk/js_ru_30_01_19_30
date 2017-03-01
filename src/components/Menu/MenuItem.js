@@ -3,14 +3,15 @@ import {Link} from 'react-router'
 
 class MenuItem extends Component {
     static propTypes = {
-        path: PropTypes.string.isRequired
+        path: PropTypes.string.isRequired,
+        title: PropTypes.string
     };
 
     render() {
-        const {path} = this.props
+        const {path, title} = this.props
         return (
             <div>
-                <Link to={path}>{path}</Link>
+                <Link to={path}>{title || path}</Link>
             </div>
         )
     }

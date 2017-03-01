@@ -21,7 +21,7 @@ class CommentsPage extends Component {
     }
 
     render () {
-        const {comments, isLoading, params: {pageNumber}} = this.props
+        const {comments, isLoading, params: {pageNumber}, total} = this.props
         if(isLoading)
             return <Loader/>
 
@@ -32,7 +32,7 @@ class CommentsPage extends Component {
 
         return(
             <div>
-                <SimplePager pageNumber={pageNumber} path="/comments"/>
+                <SimplePager current={pageNumber} count={Math.ceil(total/COMMENTS_PAGE_SIZE)} path="/comments"/>
                 <ul>
                     {commentItems}
                 </ul>
@@ -52,6 +52,7 @@ export default connect((state, props)=>{
     const isLoadingReuqired = !isLoading && !isLoaded
     return {
         comments: comments,
+        total: state.comments.total,
         isLoadingReuqired: isLoadingReuqired,
         isLoading: isLoading
     }
