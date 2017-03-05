@@ -13,35 +13,48 @@ import CommentsPage from './RouteHandlers/CommentsPage'
 import NewArticle from './RouteHandlers/NewArticle'
 import ArticleIndexPage from './RouteHandlers/ArticleIndexPage'
 import store from './store'
+import {setCurrentPath} from './AC'
+
+
+const dispatchPathname = (pathname)=>{
+    store.dispatch(setCurrentPath(pathname))
+}
+
+browserHistory.listen(ev=>{
+    dispatchPathname(ev.pathname)
+})
 
 export default (
-    <Router history={browserHistory}>
-        <Route path="/" component={Root}>
-            <IndexRedirect to="/articles"/>
-            <Route path="articles" component={ArticleList}>
-                <IndexRoute component={ArticleIndexPage}/>
-                <Route path="/new" component={NewArticle} />
-                <Route path=":id" component={ArticlePage} />
-            </Route>
-            <Route path="filters" component={Filters}/>
-            <Route path="counter" component={Counter}/>
-            <Route path="admin" component={AuthorizedOnlyPage}
-                onEnter={(routeState, replace) => {
-                    if (!store.getState().user) {
-                        replace('/error')
+    <Router history={browserHistory} >
+        <Route path="/" component={Root} onEnter={rs=>dispatchPathname(rs.location.pathname)}>
+            <IndexRedirect to="en"/>
+            <Route path=":ln">
+                <IndexRedirect to="articles"/>
+                <Route path="articles" component={ArticleList}>
+                    <IndexRoute component={ArticleIndexPage}/>
+                    <Route path=":id" component={ArticlePage} />
+                </Route>
+                <Route path="filters" component={Filters}/>
+                <Route path="counter" component={Counter}/>
+                <Route path="admin" component={AuthorizedOnlyPage}
+                    onEnter={(routeState, replace) => {
+                        if (!store.getState().user) {
+                            replace('/error')
+                        }
+                        }
                     }
-                    }
-                }
-            />
-            <Redirect from="comments" to="comments/1"/>
-            <Route path = "comments" component = {CommentsRoot}>
-{/*
-                <IndexRedirect to="1" />
-*/}
-                <Route path = ":page" component = {CommentsPage} />
+                />
+                <Redirect from="comments" to="comments/1"/>
+                <Route path = "comments" component = {CommentsRoot}>
+    {/*
+                    <IndexRedirect to="1" />
+    */}
+                    <Route path = ":page" component = {CommentsPage} />
+                </Route>
+                <Route path="error" component={ErrorPage} />
+                <Route path="*" component={NotFoundPage} />
             </Route>
-            <Route path="error" component={ErrorPage} />
-            <Route path="*" component={NotFoundPage} />
+
         </Route>
     </Router>
 )

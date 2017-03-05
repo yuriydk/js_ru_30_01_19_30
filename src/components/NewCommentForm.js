@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import {connect} from 'react-redux'
 import {addComment} from '../AC'
+import T from './translate'
 
 class NewCommentForm extends Component {
     static propTypes = {
@@ -31,8 +32,8 @@ class NewCommentForm extends Component {
     render() {
         return (
             <form onSubmit = {this.handleSubmit}>
-                comment: <input type="text" value={this.state.text} onChange = {this.handleChange('text')}/>
-                user: <input type="text" value={this.state.user} onChange = {this.handleChange('user')}/>
+                <T>comment</T>: <input type="text" value={this.state.text} onChange = {this.handleChange('text')}/>
+                <T>user</T>: <input type="text" value={this.state.user} onChange = {this.handleChange('user')}/>
                 <input type = "submit"/>
             </form>
         )

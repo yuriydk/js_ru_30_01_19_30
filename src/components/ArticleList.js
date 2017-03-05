@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {filteredArticlesSelector} from '../selectors'
 import Loader from './Loader'
 import {loadAllArticles} from '../AC'
-import {Link} from 'react-router'
+import Link from './link'
 
 class ArticleList extends Component {
     componentDidMount() {
@@ -13,15 +13,21 @@ class ArticleList extends Component {
         if (!articles.length) loadAllArticles()
     }
 
+
+    static contextTypes = {
+        router: PropTypes.object,
+    }
+
     render() {
         const {articles, loading, toggleOpenItem, isOpenItem} = this.props
+        const {ln} = this.context.router.params
 
         if (loading) {
             return <Loader/>
         }
 
         const articleElements = articles.map((article) => <li key={article.id}>
-            <Link to={`/articles/${article.id}`} activeStyle={{color: 'red'}}>{article.title}</Link>
+            <Link to={`/:ln/articles/${article.id}`} activeStyle={{color: 'red'}}>{article.title}</Link>
         </li>)
         return (
             <ul>

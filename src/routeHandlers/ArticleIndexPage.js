@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import T from '../components/translate'
 
 class ArticleIndexPage extends Component {
     static propTypes = {
@@ -8,7 +9,7 @@ class ArticleIndexPage extends Component {
     render() {
         return (
             <div>
-                <h1>Select Article</h1>
+                <h1><T>Select Article</T></h1>
             </div>
         )
     }

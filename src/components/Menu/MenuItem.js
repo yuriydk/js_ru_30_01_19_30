@@ -1,16 +1,17 @@
 import React, { Component, PropTypes } from 'react'
-import {Link} from 'react-router'
+import Link from '../link'
 
 class MenuItem extends Component {
     static propTypes = {
-        path: PropTypes.string.isRequired
+        path: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired
     };
 
     render() {
-        const {path} = this.props
+        const {path, title} = this.props
         return (
             <div>
-                <Link to={path} activeStyle={{color: 'red'}}>{path}</Link>
+                <Link to={path} activeStyle={{color: 'red'}}>{title}</Link>
             </div>
         )
     }

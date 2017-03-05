@@ -4,6 +4,8 @@ import NewCommentForm from './NewCommentForm'
 import Loader from './Loader'
 import {loadArticleComments} from '../AC'
 import {connect} from 'react-redux'
+import T from './translate'
+
 
 class CommentList extends Component {
     static propTypes = {
@@ -27,10 +29,10 @@ class CommentList extends Component {
     }
 
     render() {
-        const actionText = this.state.isOpen ? 'hide' : 'show'
+        const actionText = this.state.isOpen ? 'hide comments' : 'show comments'
         return (
             <div>
-                <a href="#" onClick={this.toggleOpen}>{actionText} comments</a>
+                <a href="#" onClick={this.toggleOpen}><T>{actionText}</T></a>
                 {this.getBody()}
             </div>
         )
@@ -46,13 +48,13 @@ class CommentList extends Component {
         }
 
         if (!comments.length) return (<div>
-            <h3>No comments yet</h3>
+            <h3><T>No comments yet</T></h3>
             <NewCommentForm articleId={id}/>
         </div>)
 
         const commentItems = comments.map(id => <li key={id}><Comment id={id} /></li>)
         return <div>
-            Username: {this.context.user}
+            <T>Username</T>: {this.context.user}
             <ul>{commentItems}</ul>
             <NewCommentForm articleId={id} />
         </div>
@@ -66,4 +68,4 @@ class CommentList extends Component {
     }
 }
 
-export default connect(null, {loadArticleComments}, null, {pure: false})(CommentList)
+export default connect(null, {loadArticleComments})(CommentList)

@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react'
+import T from '././translate'
 
 function Loader(props) {
     return (
-        <h2>Loading...</h2>
+        <h2><T>Loading</T>...</h2>
     )
 }
 

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import CommentsPaginator from '../components/CommentsPaginator'
+import T from '../components/translate'
 
 class CommentRoot extends Component {
     static propTypes = {
@@ -9,7 +10,7 @@ class CommentRoot extends Component {
     render() {
         return (
             <div>
-                <h1>Comments pagination</h1>
+                <h1><T>Comments pagination</T></h1>
                 {this.props.children}
                 <CommentsPaginator />
             </div>

@@ -1,5 +1,5 @@
 import {INCREMENT, DELETE_ARTICLE, CHANGE_DATE_RANGE, CHANGE_SELECTION, LOAD_ALL_ARTICLES, ADD_COMMENT, LOAD_ARTICLE,
-    LOAD_ARTICLE_COMMENTS, LOAD_COMMENTS_FOR_PAGE, START, SUCCESS, FAIL} from '../constants'
+    LOAD_ARTICLE_COMMENTS, LOAD_COMMENTS_FOR_PAGE, START, SUCCESS, FAIL, SET_CURRENT_PATH} from '../constants'
 import $ from 'jquery'
 
 
@@ -88,5 +88,12 @@ export function loadCommentsForPage(page) {
         type: LOAD_COMMENTS_FOR_PAGE,
         payload: {page},
         callAPI: `/api/comment?limit=5&offset=${(page - 1) * 5}`
+    }
+}
+
+export function setCurrentPath(pathname){
+    return {
+        type: SET_CURRENT_PATH,
+        payload: {pathname}
     }
 }

@@ -7,6 +7,7 @@ import './style.css'
 import {connect} from 'react-redux'
 import {deleteArticle, loadArticle} from '../../AC'
 import {articleSelectorFactory} from '../../selectors'
+import T from '../translate'
 
 class Article extends Component {
     static propTypes = {
@@ -37,7 +38,7 @@ class Article extends Component {
             <div ref = {this.getContainerRef}>
                 <h3 onClick={toggleOpen}>
                     {article.title}
-                    <a href="#" onClick = {this.handleDelete}>Delete me</a>
+                    <a href="#" onClick = {this.handleDelete}><T>Delete me</T></a>
                 </h3>
                 <CSSTransition
                     transitionName="article-body"
@@ -79,11 +80,9 @@ class Article extends Component {
     }
 }
 
-export default connect(() => {
-    const articleSelector = articleSelectorFactory()
-    return (state, props) => {
-        return {
-            article: articleSelector(state, props)
-        }
+export default connect((state, props) => {
+    return {
+        article: state.articles.entities.get(props.id),
+        ln: props.ln
     }
-}, { deleteArticle, loadArticle }, null, {pure: false})(Article)
+}, { deleteArticle, loadArticle })(Article)
